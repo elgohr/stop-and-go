@@ -1,6 +1,12 @@
 # stop-and-go
 Testing helper for concurrency
 
+## Install
+
+```bash
+go get -u github.com/elgohr/stop-and-go
+```
+
 ## Usage
 
 ```go
