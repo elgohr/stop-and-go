@@ -27,7 +27,7 @@ func ExampleFor() {
 
 	go func() {
 		_, err := http.Get(ts1.URL)
-		if err != nil{
+		if err != nil {
 			log.Fatalln(err)
 		}
 		w1.Done()
@@ -45,4 +45,3 @@ func ExampleFailing() {
 	fmt.Println(wait.For(constraint.NoOrder(w1)))
 	// Output: failed to wait on waiter 1 of 1
 }
-
