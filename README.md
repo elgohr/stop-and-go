@@ -1,4 +1,10 @@
 # stop-and-go
+[![Actions Status](https://github.com/elgohr/stop-and-go/workflows/Test/badge.svg)](https://github.com/elgohr/stop-and-go/actions)
+[![codecov](https://codecov.io/gh/elgohr/stop-and-go/branch/master/graph/badge.svg)](https://codecov.io/gh/elgohr/stop-and-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/elgohr/stop-and-go)](https://goreportcard.com/report/github.com/elgohr/stop-and-go)
+[![](https://godoc.org/github.com/elgohr/stop-and-go?status.svg)](http://godoc.org/github.com/elgohr/stop-and-go)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Testing helper for concurrency
 
 ## Install
