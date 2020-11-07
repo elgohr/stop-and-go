@@ -76,3 +76,18 @@ func TestWait_ErrorsWithMultiple(t *testing.T) {
 	}()
 	require.EqualError(t, wait.For(constraint.Before(w1, w2)), "failed to wait on waiter 2 of 2")
 }
+
+func TestWait_ErrorsWithMultipleUncalled(t *testing.T) {
+	w1 := wait.NewWaiter(time.Millisecond)
+	w2 := wait.NewWaiter(time.Millisecond)
+	w3 := wait.NewWaiter(time.Millisecond)
+	w4 := wait.NewWaiter(time.Millisecond)
+	w5 := wait.NewWaiter(time.Millisecond)
+	require.EqualError(t, wait.For(
+		constraint.Before(w1, w2),
+		constraint.Before(w3, w1),
+		constraint.Before(w4, w2),
+		constraint.Before(w3, w4),
+		constraint.Before(w5, w1),
+	), "failed to wait on waiter 1 of 5")
+}

@@ -5,13 +5,14 @@ import (
 	"time"
 )
 
+// Waiter represents a point in tests to wait for
 type Waiter struct {
 	timeout time.Duration
 	w       chan struct{}
 }
 
-type Option func(w []Waiter) []Waiter
-
+// NewWaiter constructs a new Waiter
+// Needs a timeout, which is the longest time to wait for the Waiter
 func NewWaiter(timeout time.Duration) Waiter {
 	return Waiter{
 		timeout: timeout,
@@ -19,10 +20,16 @@ func NewWaiter(timeout time.Duration) Waiter {
 	}
 }
 
+// Done marks the Waiter as called
 func (w *Waiter) Done() {
 	w.w <- struct{}{}
 }
 
+// Option is used to configure the dependencies for Waiter
+type Option func(w []Waiter) []Waiter
+
+// For provides a way to configure dependencies between Waiters
+// It errors when at least one Waiter hasn't been called
 func For(opts ...Option) error {
 	waiters := []Waiter{}
 	for _, opt := range opts {
