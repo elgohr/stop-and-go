@@ -4,14 +4,14 @@ import (
 	"github.com/elgohr/stop-and-go/wait"
 )
 
-// Use NoOrder when the order of the Waiter does not matter to other Waiters
+// NoOrder is used when the order of the Waiter does not matter to other Waiters
 func NoOrder(w wait.Waiter) func(wts []wait.Waiter) []wait.Waiter {
 	return func(wts []wait.Waiter) []wait.Waiter {
 		return append(wts, w)
 	}
 }
 
-// Use Before when a Waiter has to be called before another Waiter
+// Before is used when a Waiter has to be called before another Waiter
 func Before(first wait.Waiter, second wait.Waiter) func(wts []wait.Waiter) []wait.Waiter {
 	return func(wts []wait.Waiter) []wait.Waiter {
 		wts, fi := contains(wts, first)
