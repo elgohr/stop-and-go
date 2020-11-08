@@ -16,8 +16,6 @@ go get -u github.com/elgohr/stop-and-go
 ## Usage
 
 ```go
-import "github.com/stretchr/testify/require"
-
 func TestExample(t *testing.T) {
 	w1 := wait.NewWaiter(time.Second)
 	w2 := wait.NewWaiter(time.Second)
@@ -34,14 +32,17 @@ func TestExample(t *testing.T) {
 	}()
 
 	go func() {
-		_, err := http.Get(ts1.URL)
-		require.NoError(t, err)
+		if _, err := http.Get(ts1.URL); err != nil {
+			t.Error(err)
+		}
 		w1.Done()
 	}()
 
-	require.NoError(t, wait.For(
+	if err := wait.For(
 		constraint.NoOrder(w3),
 		constraint.Before(w1, w2),
-	))
+	); err != nil {
+		t.Error(err)
+	}
 }
 ```
