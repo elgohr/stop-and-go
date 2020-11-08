@@ -16,10 +16,15 @@ go get -u github.com/elgohr/stop-and-go
 ## Usage
 
 ```go
-func TestExample(t *testing.T) {
-	w1 := wait.NewWaiter(time.Second)
-	w2 := wait.NewWaiter(time.Second)
-	w3 := wait.NewWaiter(time.Second)
+package main
+
+import stopandgo "github.com/elgohr/stop-and-go"
+
+
+func main() {
+	w1 := stopandgo.wait.NewWaiter(time.Second)
+	w2 := stopandgo.wait.NewWaiter(time.Second)
+	w3 := stopandgo.wait.NewWaiter(time.Second)
 
 	ts1 := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -33,16 +38,16 @@ func TestExample(t *testing.T) {
 
 	go func() {
 		if _, err := http.Get(ts1.URL); err != nil {
-			t.Error(err)
+			Panic(err)
 		}
 		w1.Done()
 	}()
 
-	if err := wait.For(
-		constraint.NoOrder(w3),
-		constraint.Before(w1, w2),
+	if err := stopandgo.wait.For(
+		stopandgo.constraint.NoOrder(w3),
+		stopandgo.constraint.Before(w1, w2),
 	); err != nil {
-		t.Error(err)
+		Panic(err)
 	}
 }
 ```
