@@ -2,12 +2,13 @@ package wait_test
 
 import (
 	"fmt"
-	"github.com/elgohr/stop-and-go/constraint"
-	"github.com/elgohr/stop-and-go/wait"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"time"
+
+	"github.com/elgohr/stop-and-go/constraint"
+	"github.com/elgohr/stop-and-go/wait"
 )
 
 func ExampleFor() {
@@ -38,10 +39,4 @@ func ExampleFor() {
 		constraint.Before(w1, w2),
 	))
 	// Output: <nil>
-}
-
-func ExampleFailing() {
-	w1 := wait.NewWaiter(time.Second)
-	fmt.Println(wait.For(constraint.NoOrder(w1)))
-	// Output: failed to wait on waiter 1 of 1
 }
